@@ -1,23 +1,27 @@
 import React from "react";
-import logo from "../../components/img/logo/logo-black.png"
+import { Link } from "react-router-dom";
+import logo from "../../components/img/logo/logo-black.png";
+import '../styles/login.css';
 
 export default function Login() {
+  const handleRedirectHome = () => {
+  };
+
   return (
-    <div className='container py-5 h-100'>
-      <div className='row d-flex justify-content-center align-items-center h-100'>
-        <div className='col-12 col-md-8 col-lg-6 col-xl-5'>
-          <div
-            className='card text-white login-bg'
-          >
-            <div className='card-body p-5 text-center'>
-              <div className='md-4'>
+    <div className="login-container">
+    <div className="py-5 h-100">
+      <div className="row d-flex justify-content-center align-items-center h-100">
+        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div className="card-cadastro text-white login-bg">
+            <div className="card-body p-5 text-center">
+              <div className="md-4">
+                <Link to="/" onClick={handleRedirectHome}>
                 <img
-                  src={logo}
-                  onClick='redirectHome()'
-                  role='button'
-                  className='img-fluid w-25 p-2 mb-2'
-                  alt='Voltar para a página inicial'
-                />
+  src={logo}
+  className="img-fluid p-2 mb-2 logo-cadastro"
+  alt="Voltar para a página inicial"
+/>
+                </Link>
 
                 <section>
                   <form>
@@ -28,7 +32,7 @@ export default function Login() {
                       className='form-control form-control-lg'
                       placeholder='Digite seu E-mail'
                       required
-                      autocomplete='off'
+                      autoComplete='off'
                       pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'
                     />
 
@@ -40,7 +44,7 @@ export default function Login() {
                       required
                     />
                     <input
-                      className='btn btn-outline-dark btn-lg px-5 mt-5'
+                      className='btn btn-outline-dark btn-lg px-5 mt-5 login-btn'
                       type='submit'
                       value='Login'
                       id='submit-login'
@@ -48,10 +52,10 @@ export default function Login() {
                   </form>
                 </section>
 
-                <p className='small pb-lg-2 mt-4'>
+                <p className="small pb-lg-2 mt-4">
                   <a
-                    className='links-register fs-6 text-decoration-none'
-                    href='./forgot.html'
+                    className="links-register fs-6 text-decoration-none"
+                    href="./forgot.html"
                   >
                     Esqueci minha senha
                   </a>
@@ -59,23 +63,21 @@ export default function Login() {
               </div>
 
               <div>
-                <p className='text-black mb-4'>
-                  Não tem uma conta?
+                <p className="text-black mb-4">
+                  Não tem uma conta? 
                   <a
-                    href='../pages/cadastro.html'
-                    className='links-register register fw-bold'
+                    href="../pages/cadastro.html"
+                    className="links-register register fw-bold"
                   >
-                    Cadastre-se
+                      Cadastre-se
                   </a>
                 </p>
               </div>
-              <button id='button'>
-                <i className='fas fa-moon icon'></i>
-              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

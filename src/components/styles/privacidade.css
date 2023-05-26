@@ -13,12 +13,6 @@
   --preto: #000;
 }
 
-body {
-  background: var(--cinza);
-  height: 100vh;
-  font-family: "Roboto", sans-serif;
-}
-
 .bg-primary-color {
   background-color: #640d14;
 }
@@ -53,7 +47,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-
 
 .navbar-toggler:focus {
   text-decoration: none;

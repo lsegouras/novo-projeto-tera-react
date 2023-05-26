@@ -1,69 +1,37 @@
-/* eslint jsx-a11y/anchor-is-valid: 0 */
-import React from "react";
-import logo from "../../components/img/logo/logo.png";
+import React, { useEffect } from "react";
+import '../styles/privacidade.css'
+import Navbar from "../home/Nav";
+import Footer from "../home/Footer";
 
 export default function Privacidade() {
-  return (
-    // <!--Navbar-->
-    <div>
-      <nav className='navbar navbar-expand-lg bg-primary-color'>
-        <div className='container-fluid'>
-          <img
-            src={logo}
-            className='logo navbar-brand'
-            onClick='redirectHome()'
-            alt='Voltar para a página inicial'
-          />
-          <button
-            className='navbar-toggler'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#navbarSupportedContent'
-            aria-controls='navbarSupportedContent'
-            aria-expanded='false'
-            aria-label='Alternar navegação'
-          >
-            <span>
-              <i className='bi bi-list primary-color'></i>
-            </span>
-          </button>
-          <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-            <ul className='navbar-nav me-auto mb-3 mb-lg-0' id='navbar-items'>
-              <li className='nav-item'>
-                <a
-                  className='nav-link primary-color'
-                  aria-current='page'
-                  href='#'
-                >
-                  início
-                </a>
-              </li>
-              <li className='nav-item primary-color'>
-                <a className='nav-link' href='#'>
-                  Buscar Loja
-                </a>
-              </li>
-              <li className='nav-item primary-color'>
-                <a className='nav-link' href='#'>
-                  para proprietários
-                </a>
-              </li>
-              <li className='nav-item primary-color'>
-                <a className='nav-link' href='#'>
-                  para imobiliárias
-                </a>
-              </li>
-              <li className='nav-item primary-color'>
-                <a onClick='redirectLogin()' className='nav-link' href='#'>
-                  <i className='bi bi-box-arrow-in-right'></i> entrar
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+  useEffect(() => {
+    const handleCollapsibleClick = (event) => {
+      event.target.classList.toggle("active");
+      const content = event.target.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        content.classList.remove("show");
+      } else {
+        content.style.maxHeight = `${content.scrollHeight}px`;
+        content.classList.add("show");
+      }
+    };
 
-      {/* <!--Main--> */}
+    const collapsibles = document.getElementsByClassName("collapsible");
+    for (let i = 0; i < collapsibles.length; i++) {
+      collapsibles[i].addEventListener("click", handleCollapsibleClick);
+    }
+
+    return () => {
+      for (let i = 0; i < collapsibles.length; i++) {
+        collapsibles[i].removeEventListener("click", handleCollapsibleClick);
+      }
+    };
+  }, []);
+
+  return (
+    <div>
+      <Navbar/>
       <div className='container-fluid'>
         <main className='privacidade'>
           <button className='collapsible'>
@@ -399,62 +367,8 @@ export default function Privacidade() {
           </div>
         </main>
       </div>
-      {/* <!-- Footer--> */}
-      <footer>
-        <section className='about mt-4'>
-          <h3 className='text-white fs-5'>Sobre Nós</h3>
-          <ul>
-            <li>
-              <a href='#'>Conheça o SobreLoja</a>
-            </li>
-            <li>
-              <a href='#'>Regiões Atendidas</a>
-            </li>
-            <li>
-              <a href='#'>FAQ</a>
-            </li>
-            <li>
-              <a href='#'>Política de Privacidade</a>
-            </li>
-          </ul>
-        </section>
-
-        <section className='social-media mt-4'>
-          <h3 className='text-white fs-5'>Contato</h3>
-          <ul className='wrapper'>
-            <li className='icon facebook'>
-              <span className='tooltip'>Facebook</span>
-              <span>
-                <i className='bi bi-facebook'></i>
-              </span>
-            </li>
-            <li className='icon twitter'>
-              <span className='tooltip'>Twitter</span>
-              <span>
-                <i className='bi bi-twitter'></i>
-              </span>
-            </li>
-            <li className='icon instagram'>
-              <span className='tooltip'>Instagram</span>
-              <span>
-                <i className='bi bi-instagram'></i>
-              </span>
-            </li>
-            <li className='icon linkedin'>
-              <span className='tooltip'>Linkedin</span>
-              <span>
-                <i className='bi bi-linkedin'></i>
-              </span>
-            </li>
-            <li className='icon whatsapp'>
-              <span className='tooltip'>WhatsApp</span>
-              <span>
-                <i className='bi bi-whatsapp'></i>
-              </span>
-            </li>
-          </ul>
-        </section>
-      </footer>
+<Footer/>
     </div>
   );
 }
+

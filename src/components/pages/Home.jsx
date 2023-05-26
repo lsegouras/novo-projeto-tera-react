@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React from "react";
-import logo from "../../components/img/logo/logo.png";
+import logo from "../../components/img/logo/logo.png"; 
 import mainPhoto from "../../components/img/index/main.jpg";
 import lojaImg from "../../components/img/index/loja.jpg";
 import quiosqueImg from "../../components/img/index/quiosque.jpg";
@@ -172,7 +172,7 @@ export default function Home() {
               <a href='#'>FAQ</a>
             </li>
             <li>
-              <a href='/pages/privacidade.html'>Política de Privacidade</a>
+              <a href='#'>Política de Privacidade</a>
             </li>
           </ul>
         </section>
