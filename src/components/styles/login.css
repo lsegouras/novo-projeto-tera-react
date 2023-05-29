@@ -6,13 +6,17 @@
   box-sizing: border-box;
 }
 
-.container {
-  background-image: url(../img/fundo/background.jpg);
-  background-size: 100% 100%;
+.login-container {
+  background-image: url("../../components/img/fundo/background.jpg");
   background-repeat: no-repeat;
-  background-position: center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
   height: 100vh;
-  overflow: hidden;
 }
 
 .logo-cadastro {
@@ -21,8 +25,8 @@
 }
 
 .card-cadastro {
+  border-radius: 2em;
   box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.55);
-  border: 2px solid #000;
   background-color: #f8f9fa !important;
   padding: 1rem;
 }
@@ -50,7 +54,7 @@
 }
 
 .btn:hover {
-  color: #000;
+  color: #fff;
 }
 
 input::placeholder {
@@ -64,4 +68,19 @@ form {
 #email,
 #password {
   color: #000;
+}
+
+.card-login {
+  position: absolute;
+  border-radius: 2em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
+  background-color: #f8f9fa !important;
+  padding: 1rem;
+  margin: 0 auto;
+  text-align: center;
 }

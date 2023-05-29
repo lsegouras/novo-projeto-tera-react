@@ -6,59 +6,173 @@
   box-sizing: border-box;
 }
 
-.container {
-  background-image: url(../img/fundo/background.jpg);
-  background-size: 100% 100%;
+html,
+body {
+  height: 100%;
+}
+
+.page-container {
+  background-image: url("../../components/img/fundo/background.jpg");
   background-repeat: no-repeat;
-  background-position: center center;
-  height: 100vh;
-  overflow: hidden;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.cadastro-container {
+  max-width: 50%;
+  width: 100%;
+  padding: 2rem;
+  margin: auto;
+  height: auto;
 }
 
 .card-cadastro {
-  box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.55);
-  border: 2px solid #000;
-  background-color: #f8f9fa !important;
-  padding: 1rem;
+  -webkit-box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
+  border-radius: 2em;
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.logo-cadastro {
+  max-width: 150px;
+  display: block;
   margin: 0 auto;
+}
+
+.input-field {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.email-input,
+.celular-input,
+.cpfcnpj-input,
+.data-input,
+.senha-input,
+.senha-confirm-input,
+.cep-input,
+.uf-input,
+.numero-input,
+.bairro-input,
+.cidade-input,
+.rua-input {
+  width: 100%;
+}
+
+.cadastrar-btn {
+  width: 100%;
+}
+
+.text-form {
   text-align: center;
 }
 
+.text-links {
+  margin-bottom: 0.5rem;
+}
+
 .links-register {
+  color: #000;
+}
+
+.links-register:hover {
   text-decoration: none;
-  color: var(--vinho);
+  color: #000;
 }
 
-.form-control {
-  margin-bottom: 1rem;
+.fs-6 {
+  font-size: 0.875rem;
 }
 
-.form-control:focus {
-  border-color: #ff0000;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+.fw-bold {
+  font-weight: 700;
 }
 
-.btn {
+.input-group {
   display: flex;
-  justify-content: center;
-  margin-left: 0;
-  transform: translateX(0);
-  transition: 0.8s;
+  gap: 0.5rem;
 }
 
-.btn:hover {
-  color: #000;
+.nome-input,
+.sobrenome-input,
+.email-input,
+.celular-input,
+.cpfcnpj-input,
+.data-input,
+.senha-input,
+.senha-confirm-input,
+.cep-input,
+.uf-input,
+.numero-input,
+.bairro-input,
+.cidade-input,
+.rua-input {
+  flex-grow: 1;
 }
 
-input::placeholder {
-  font-size: 1rem;
+.form-group {
+  width: 100%;
 }
 
-form {
-  text-align: left;
+#submit-login {
+  width: 25%;
 }
 
-#email,
-#password {
-  color: #000;
+@media (max-width: 768px) {
+  .cadastro-container {
+    max-width: 80%;
+  }
+
+  .card-cadastro {
+    padding: 1rem;
+  }
+
+  .logo-cadastro {
+    max-width: 100px;
+  }
+
+  .input-field {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .nome-input,
+  .sobrenome-input,
+  .email-input,
+  .celular-input,
+  .cpfcnpj-input,
+  .data-input,
+  .senha-input,
+  .senha-confirm-input,
+  .cep-input,
+  .uf-input,
+  .numero-input,
+  .bairro-input,
+  .cidade-input,
+  .rua-input {
+    width: 100%;
+  }
+
+  .cadastrar-btn {
+    width: 100%;
+  }
+
+  #submit-login {
+    width: 50%;
+  }
 }

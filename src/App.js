@@ -8,6 +8,8 @@ import Footer from "./components/home/Footer";
 import Privacidade from "./components/pages/Privacidade";
 import Login from "./components/pages/Login";
 import Cadastro from "./components/pages/Cadastro";
+import Forgot from "./components/pages/Forgot";
+import Resultados from "./components/pages/Resultados";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/privacidade" element={<Privacidade />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route path="/resultados" element={<Resultados />} />
         </Routes>
       </div>
     </Router>
