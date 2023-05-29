@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
-import React from "react";
-import logo from "../img/logo/logo.png";
+import React, { useState, useEffect } from "react";
+import "../styles/resultados.css";
 import acbrasil from "../img/cards/acbrazil.jpeg";
 import acium from "../img/cards/acium.jpg";
 import baciodilatte from "../img/cards/baciodilatte.jpg";
@@ -26,570 +26,146 @@ import Footer from "../home/Footer";
 import Navbar from "../home/Nav";
 
 export default function Resultados() {
+  const cardsData = [
+    {
+      imgSrc: require("../img/cards/acbrazil.jpeg"),
+      title: "AC Brazil",
+      estado: "São Paulo",
+      descricao: "Loja de shopping. 80m²",
+      valor: "R$ 15.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/acium.jpg",
+      title: "Acium",
+      estado: "São Paulo",
+      descricao: "Quiosque. 10m²",
+      valor: "R$ 4.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/baciodilatte.jpg",
+      title: "Bacio di Latte",
+      estado: "Rio de Janeiro",
+      descricao: "Restaurante. 50m²",
+      valor: "R$ 12.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/boticario.jpg",
+      title: "O Boticário",
+      estado: "Rio de Janeiro",
+      descricao: "Quiosque. 15m²",
+      valor: "R$ 6.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/botoclinic.jpg",
+      title: "Botoclinic",
+      estado: "Rio de Janeiro",
+      descricao: "Loja de shopping. 150m²",
+      valor: "R$ 20.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/brasilcacau.jpg",
+      title: "Chocolates Brasil Cacau",
+      estado: "São Paulo",
+      descricao: "Quiosque. 12m²",
+      valor: "R$ 6.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/cabana.png",
+      title: "Cabana Burger",
+      estado: "São Paulo",
+      descricao: "Restaurante. 70m²",
+      valor: "R$ 16.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/cantao.jpg",
+      title: "Cantao",
+      estado: "Rio de Janeiro",
+      descricao: "Loja de shopping. 65m²",
+      valor: "R$ 14.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/chillibeans.jpg",
+      title: "Chilli Beans",
+      estado: "São Paulo",
+      descricao: "Quiosque. 18m²",
+      valor: "R$ 7.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/gendai.jpg",
+      title: "Gendai",
+      estado: "São Paulo",
+      descricao: "Restaurante. 160m²",
+      valor: "R$ 18.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/kfc.jpg",
+      title: "KFC",
+      estado: "São Paulo",
+      descricao: "Restaurante. 55m²",
+      valor: "R$ 11.000/mês",
+    },
+    {
+      imgSrc: "../img/cards/mammajamma.webp",
+      title: "Mamma Jamma",
+      estado: "Rio de Janeiro",
+      descricao: "Restaurante. 180m²",
+      valor: "R$ 19.000/mês",
+    },
+    {
+    imgSrc: "../img/cards/oakberry.jpg",
+      title: "Oakberry",
+      estado: "Rio de Janeiro",
+    }
+  ];
+
+  useEffect(() => {
+  }, []);
+  
+
+    
   return (
     <div>
       <Navbar />
 
       <main>
-        <h1 className="main-title">Encontre a loja dos seus sonhos!</h1>
+        <h1 className="results-title">Encontre a loja dos seus sonhos!</h1>
         <div className="container">
           <div className="row">
             <div className="container-cards">
               <div className="row" id="cards">
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Sao Paulo"
-                  data-valor="15000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img
-                      src={acbrasil}
-                      className="card-img-top"
-                      alt="AC Brazil"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">AC Brazil</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 80m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 15.000/mês</small>
-                      </p>
+                {cardsData.map((card, index) => (
+                  <div
+                    key={index}
+                    className="col-md-4 card-group"
+                    data-tipo={card.tipo}
+                    data-estado={card.estado}
+                    data-valor={card.valor}
+                    data-tamanho={card.tamanho}
+                  >
+                    <div className="card">
+                      <img
+                        src={card.imgSrc}
+                        className="card-img-results"
+                        alt={card.title}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{card.title}</h5>
+                        <p className="card-text">
+                          <small className="text-muted">{card.estado}</small>
+                        </p>
+                        <p className="card-text">
+                          <small className="text-muted">{card.descricao}</small>
+                        </p>
+                        <p className="card-text">
+                          <small className="text-muted">{card.valor}</small>
+                        </p>
+                          <a href="#" className="btn btn-primary">
+                          Ver detalhes
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Quiosque"
-                  data-estado="Sao Paulo"
-                  data-valor="4000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img src={acium} className="card-img-top" alt="Acium" />
-                    <div className="card-body">
-                      <h5 className="card-title">Acium</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Quiosque. 10m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 4.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Restaurante"
-                  data-estado="Rio de Janeiro"
-                  data-valor="12000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img
-                      src={baciodilatte}
-                      className="card-img-top"
-                      alt="Bacio di Latte"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Bacio di Latte</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Restaurante. 50m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 12.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Quiosque"
-                  data-estado="Rio de Janeiro"
-                  data-valor="6000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img
-                      src={boticario}
-                      className="card-img-top"
-                      alt="O Boticário"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">O Boticário</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Quiosque. 15m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 6.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Rio de Janeiro"
-                  data-valor="20000"
-                  data-tamanho="100a200"
-                >
-                  <div className="card">
-                    <img
-                      src={botoclinic}
-                      className="card-img-top"
-                      alt="Botoclinic"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Botoclinic</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 150m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 20.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Quiosque"
-                  data-estado="Sao Paulo"
-                  data-valor="6000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img
-                      src={brasilcacau}
-                      className="card-img-top"
-                      alt="Chocolates Brasil Cacau"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Chocolates Brasil Cacau</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Quiosque. 12m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 6.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Restaurante"
-                  data-estado="Sao Paulo"
-                  data-valor="16000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img
-                      src={cabana}
-                      className="card-img-top"
-                      alt="Cabana Burger"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Cabana Burger</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Restaurante. 70m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 16.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Rio de Janeiro"
-                  data-valor="14000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img src={cantao} className="card-img-top" alt="Cantao" />
-                    <div className="card-body">
-                      <h5 className="card-title">Cantao</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 65m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 14.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Quiosque"
-                  data-estado="Sao Paulo"
-                  data-valor="7000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img
-                      src={chillibeans}
-                      className="card-img-top"
-                      alt="Chilli Beans"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Chilli Beans</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Quiosque. 18m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 7.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Restaurante"
-                  data-estado="Sao Paulo"
-                  data-valor="18000"
-                  data-tamanho="100a200"
-                >
-                  <div className="card">
-                    <img src={gendai} className="card-img-top" alt="Gendai" />
-                    <div className="card-body">
-                      <h5 className="card-title">Gendai</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Restaurante. 160m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 18.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Restaurante"
-                  data-estado="Sao Paulo"
-                  data-valor="11000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img src={kfc} className="card-img-top" alt="KFC" />
-                    <div className="card-body">
-                      <h5 className="card-title">KFC</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Restaurante. 55m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 11.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Restaurante"
-                  data-estado="Rio de Janeiro"
-                  data-valor="19000"
-                  data-tamanho="100a200"
-                >
-                  <div className="card">
-                    <img
-                      src={mammajamma}
-                      className="card-img-top"
-                      alt="Mamma Jamma"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Mamma Jamma</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Restaurante. 180m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 19.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Quiosque"
-                  data-estado="Rio de Janeiro"
-                  data-valor="6000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img
-                      src={oakberry}
-                      className="card-img-top"
-                      alt="Oakberry"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Oakberry</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Quiosque. 14m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 6.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Sao Paulo"
-                  data-valor="13000"
-                  data-tamanho="100a200"
-                >
-                  <div className="card">
-                    <img src={peahi} className="card-img-top" alt="Peahi" />
-                    <div className="card-body">
-                      <h5 className="card-title">Peahi</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 100m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 13.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Quiosque"
-                  data-estado="Sao Paulo"
-                  data-valor="8000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img
-                      src={polishop}
-                      className="card-img-top"
-                      alt="Polishop"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Polishop</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Quiosque. 14m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 8.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Rio de Janeiro"
-                  data-valor="13000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img
-                      src={rommanel}
-                      className="card-img-top"
-                      alt="Rommanel"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Rommanel</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 70m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 13.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Restaurante"
-                  data-estado="Rio de Janeiro"
-                  data-valor="27000"
-                  data-tamanho="100a200"
-                >
-                  <div className="card">
-                    <img
-                      src={starbucks}
-                      className="card-img-top"
-                      alt="Starbucks"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Starbucks</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Restaurante. 120m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 27.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Box"
-                  data-estado="Sao Paulo"
-                  data-valor="3000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img
-                      src={thecoffee}
-                      className="card-img-top"
-                      alt="The Coffee"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">The Coffee</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Box. 10m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 3.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Sao Paulo"
-                  data-valor="45000"
-                  data-tamanho="maior200"
-                >
-                  <div className="card">
-                    <img
-                      src={tokstok}
-                      className="card-img-top"
-                      alt="Tok Stok"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">Tok Stok</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 250m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 45.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Box"
-                  data-estado="Rio de Janeiro"
-                  data-valor="5000"
-                  data-tamanho="ate50"
-                >
-                  <div className="card">
-                    <img src={propet} className="card-img-top" alt="ProPet" />
-                    <div className="card-body">
-                      <h5 className="card-title">ProPet</h5>
-                      <p className="card-text">
-                        <small className="text-muted">Rio de Janeiro</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">Box. 12m²</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 5.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="col-md-4 card-group"
-                  data-tipo="Loja"
-                  data-estado="Sao Paulo"
-                  data-valor="10000"
-                  data-tamanho="50a100"
-                >
-                  <div className="card">
-                    <img src={uza} className="card-img-top" alt="Uza" />
-                    <div className="card-body">
-                      <h5 className="card-title">Uza</h5>
-                      <p className="card-text">
-                        <small className="text-muted">São Paulo</small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          Loja de shopping. 70m²
-                        </small>
-                      </p>
-                      <p className="card-text">
-                        <small className="text-muted">R$ 10.000/mês</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

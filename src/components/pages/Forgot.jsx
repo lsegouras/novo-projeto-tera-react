@@ -4,6 +4,7 @@ import "../styles/forgot.css";
 import { Link } from "react-router-dom";
 
 export default function Forgot() {
+  const handleRedirectHome = () => {};
   return (
     <div className="forgot-container">
       <div className="container py-5 h-100">
@@ -12,13 +13,13 @@ export default function Forgot() {
             <div className="card bg-light text-white card-forgot">
               <div className="card-body p-5 text-center">
                 <div className="md-4">
+                <Link to="/" onClick={handleRedirectHome}>
                   <img
                     src={logo}
-                    onClick="redirectHome()"
                     role="button"
                     className="img-fluid w-25 p-2 mb-2"
                     alt="Voltar para a página inicial"
-                  />
+                  /></Link>
                   <h2 className="text-black fs-5 mb-3">Esqueceu sua senha?</h2>
                   <form id="form-email">
                     <input

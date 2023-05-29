@@ -53,12 +53,12 @@ export default function Login() {
                     </section>
 
                     <p className="small pb-lg-2 mt-4">
-                      <a
+                      <Link
                         className="links-register fs-6 text-decoration-none"
-                        href="./forgot.html"
+                        to="/forgot"
                       >
                         Esqueci minha senha
-                      </a>
+                      </Link>
                     </p>
                   </div>
 
