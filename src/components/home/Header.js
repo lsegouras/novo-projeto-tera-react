@@ -88,7 +88,9 @@ const Header = () => {
             <option value="50a100">De 50m² a 100m²</option>
             <option value="100a200">De 100m² a 200m²</option>
           </select>
-          <button type="submit">Filtrar</button>
+          <button type="submit" style={{ marginBottom: "10px" }}>
+            Filtrar
+          </button>
         </form>
       </div>
       <div className="right">
