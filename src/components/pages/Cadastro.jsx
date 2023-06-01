@@ -10,6 +10,8 @@ export default function Cadastro() {
     e.preventDefault();
   };
 
+  
+
   return (
     <div className="page-container">
       <div className="cadastro-container">

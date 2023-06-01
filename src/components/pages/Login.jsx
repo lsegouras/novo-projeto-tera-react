@@ -1,10 +1,94 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+// import {useState} from 'react';
+// import { useNavigate } from "react-router-dom";
+// import UserService from "../Services/UserService";
 import logo from "../../components/img/logo/logo-black.png";
 import "../styles/login.css";
 
+// const userService = new UserService()
+
+const schema = yup.object({
+  email: yup.string().required("*Campo obrigatório!").email('*Precisa ser um email válido').test("isValidPass", "*Email inválido", (value, context) => {
+    const hasDot = /[.]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasAt = /[@]/.test(value);
+    let validConditions = 0;
+    const numberOfMustBeValidConditions = 3;
+    const conditions = [hasLowerCase, hasDot, hasAt];
+    conditions.forEach((condition) =>
+      condition ? validConditions++ : null
+    );
+    if (validConditions >= numberOfMustBeValidConditions) {
+      return true;
+    }
+    return false
+  }),
+  password: yup.string().required("*Campo obrigatório!").min(6, "*Sua senha deve conter no mínimo 6 caracteres").test("isValidPass", "*Senha inválida ([A-Z] [a-z] [0-9] [!@#%&])", (value, context) => {
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSymbole = /[!@#%&]/.test(value);
+    let validConditions = 0;
+    const numberOfMustBeValidConditions = 3;
+    const conditions = [hasLowerCase, hasUpperCase, hasNumber, hasSymbole];
+    conditions.forEach((condition) =>
+      condition ? validConditions++ : null
+    );
+    if (validConditions >= numberOfMustBeValidConditions) {
+      return true;
+    }
+    return false
+  })
+})
+
 export default function Login() {
+
   const handleRedirectHome = () => {};
+  
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+  const onSubmit = data => console.log(data);
+
+  console.log(errors)
+
+
+//     const [loading, setLoading] = useState(false)
+//     const [form, setForm] = useState([])
+//     const navigate = useNavigate()
+  
+//     const handleSubmit = async (event) => {
+//       event.preventDefault();
+//       try {
+//         setLoading(true)
+//         const response = await userService.login(form)
+//         console.log('response do Login', response)
+//         if (response === true) {
+//           alert('usuário Logado com Sucesso')
+//           navigate('/')
+//         }
+//         setLoading(false)
+//       }
+//       catch (err) {
+//         alert('Algo deu errado com o Login' + err)
+//       }
+//   }
+  
+//     const handleChange = (event) => {
+//       setForm({...form, [event.target.name]: event.target.value})
+//     }
+  
+//     const validadorInput = () => {
+//       return validarEmail(form.email) && validarSenha(form.password)
+//     }
+//     if (loading === true){
+//       validadorInput()
+//     }
+    
 
   return (
     <div className="login-container">
@@ -24,25 +108,26 @@ export default function Login() {
                     </Link>
 
                     <section>
-                      <form>
+                      <form onSubmit={handleSubmit(onSubmit)}>
                         <input
-                          type="email"
+                          type="text"
                           id="email"
-                          name="email"
+                          // name="email"
                           className="form-control form-control-lg"
                           placeholder="Digite seu E-mail"
-                          required
-                          autoComplete="off"
-                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                          {...register("email")}
                         />
+                        <p className="error">{errors.email?.message}</p>
 
                         <input
                           type="password"
                           id="password"
                           className="form-control form-control-lg mt-2"
                           placeholder="Digite sua Senha"
-                          required
+                          {...register("password")}
                         />
+                        <p className="error">{errors.password?.message}</p>
+
                         <input
                           className="btn btn-outline-dark btn-lg px-5 mt-5 login-btn"
                           type="submit"
