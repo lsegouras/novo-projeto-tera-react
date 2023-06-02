@@ -104,6 +104,12 @@ body {
   gap: 0.5rem;
 }
 
+.input-group p{
+  display: flex;
+  gap: 0.5rem;
+  align-self: center;
+}
+
 .nome-input,
 .sobrenome-input,
 .email-input,

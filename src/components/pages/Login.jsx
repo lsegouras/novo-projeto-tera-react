@@ -56,40 +56,6 @@ export default function Login() {
 
   console.log(errors)
 
-
-//     const [loading, setLoading] = useState(false)
-//     const [form, setForm] = useState([])
-//     const navigate = useNavigate()
-  
-//     const handleSubmit = async (event) => {
-//       event.preventDefault();
-//       try {
-//         setLoading(true)
-//         const response = await userService.login(form)
-//         console.log('response do Login', response)
-//         if (response === true) {
-//           alert('usuário Logado com Sucesso')
-//           navigate('/')
-//         }
-//         setLoading(false)
-//       }
-//       catch (err) {
-//         alert('Algo deu errado com o Login' + err)
-//       }
-//   }
-  
-//     const handleChange = (event) => {
-//       setForm({...form, [event.target.name]: event.target.value})
-//     }
-  
-//     const validadorInput = () => {
-//       return validarEmail(form.email) && validarSenha(form.password)
-//     }
-//     if (loading === true){
-//       validadorInput()
-//     }
-    
-
   return (
     <div className="login-container">
       <div className="login-container">
