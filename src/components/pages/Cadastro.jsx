@@ -113,9 +113,16 @@ export default function Cadastro() {
       setLoading(false);
     }
   };
-  const onSubmit = (data) => {
-    console.log(data);
+
+  const onSubmit = async (data) => {
+    try {
+      await axios.post("http://localhost:4000/submit", data);
+      console.log("Dados armazenados com sucesso!");
+    } catch (error) {
+      console.error("Erro ao armazenar os dados", error);
+    }
   };
+
   const handleRedirectHome = () => {};
 
   return (
