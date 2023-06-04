@@ -6,21 +6,11 @@
   box-sizing: border-box;
 }
 
-:root {
-  --vinho: #640d14;
-  --vinho-escuro: #290508;
-  --cinza: #ccc;
-  --branco: #fff;
-  --preto: #000;
-}
-
 body {
-  background: var(--cinza);
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
 }
 
-/* NavBar */
 .navbar {
   background: var(--vinho);
 }
@@ -73,8 +63,6 @@ body {
   --bs-navbar-hover-color: none;
 }
 
-/* NavBar Img */
-
 a.navbar-brand {
   margin: 0;
 }
@@ -89,7 +77,6 @@ a.navbar-brand {
   width: 100%;
 }
 
-/* Header */
 .header-img {
   width: 100%;
   height: 100%;
@@ -99,6 +86,7 @@ a.navbar-brand {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #ccc;
 }
 
 .left {
@@ -110,8 +98,6 @@ a.navbar-brand {
 .right {
   width: 55%;
 }
-
-/* Header - Selects */
 
 .container-form {
   display: flex;
@@ -144,8 +130,6 @@ a.navbar-brand {
   transform: translateX(-50%);
 }
 
-/* Cards */
-
 .main-title {
   display: flex;
   align-items: center;
@@ -177,6 +161,7 @@ a.navbar-brand {
 .cards-main {
   display: flex;
   justify-content: space-between;
+  background-color: #ccc;
 }
 
 .card {
@@ -263,8 +248,6 @@ a.navbar-brand {
   transform: translateY(0);
   visibility: visible;
 }
-
-/* Footer */
 
 footer {
   background-color: var(--vinho);
@@ -435,8 +418,6 @@ ol {
   padding-left: 0;
 }
 
-/* Responsividade */
-
 @media (min-width: 320px) and (max-width: 1210px) {
   .header-img {
     width: 100%;
@@ -489,8 +470,6 @@ ol {
   }
 }
 
-/*/ titulo formulario /*/
-
 .form-title {
   font-family: "Roboto", cursive;
   text-align: center;
@@ -510,8 +489,6 @@ ol {
     transform: translateY(0);
   }
 }
-
-/* ////////// formulário selects */
 
 form {
   max-width: 500px;
@@ -555,12 +532,6 @@ button {
 }
 
 .formulario {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-form {
   display: flex;
   flex-direction: column;
   align-items: center;

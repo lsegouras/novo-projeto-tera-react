@@ -1,356 +1,310 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import InputMask from "react-input-mask";
 import * as yup from "yup";
-import logo from "../../components/img/logo/logo-black.png";
+import axios from "axios";
+import logo from "../img/logo/logo-black.png";
 import "../styles/cadastro.css";
+import { Link } from "react-router-dom";
 
 const schema = yup.object({
+  nomeCompleto: yup
+    .string()
+    .required("Nome Completo é obrigatório")
+    .min(3, "Nome Completo deve conter no mínimo 3 caracteres"),
+  dataNascimento: yup
+    .string()
+    .required("Data de Nascimento é obrigatória")
+    .test("isValidDate", "Data de Nascimento inválida", (value) => {
+      const dateRegex =
+        /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{2}|\d{4})$/;
 
-  nome: yup.string().required("*Campo obrigatório!").min(3, "*Seu nome deve conter no mínimo 3 caracteres"),
+      if (!dateRegex.test(value)) {
+        return false;
+      }
 
-  sobrenome: yup.string().required("*Campo obrigatório!").min(3, "*Seu sobrenome deve conter no mínimo 3 caracteres"),
-
-  email: yup.string().required("*Campo obrigatório!").email('*Precisa ser um email válido').test("isValidPass", "*Email inválido", (value, context) => {
-    const hasDot = /[.]/.test(value);
-    const hasLowerCase = /[a-z]/.test(value);
-    const hasAt = /[@]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 3;
-    const conditions = [hasLowerCase, hasDot, hasAt];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
+      const [day, month, year] = value.split("/");
+      const currentDate = new Date();
+      const inputDate = new Date(`${year}-${month}-${day}`);
+      if (isNaN(inputDate.getTime()) || inputDate > currentDate) {
+        return false;
+      }
+      const minimumAge = 18;
+      const minimumAgeDate = new Date();
+      minimumAgeDate.setFullYear(minimumAgeDate.getFullYear() - minimumAge);
+      if (inputDate > minimumAgeDate) {
+        return false;
+      }
       return true;
-    }
-    return false
-  }),
+    }),
 
-  celular: yup.string().required("Campo Obrigatório!").min(14, "*O celular deve conter no mínimo 14 caracteres (XX)XXXXX-XXXX").max(14, "*O celular deve conter no máximo 14 caracteres (XX)XXXXX-XXXX").test("isValidCel", "*Celular inválido", (value, context) => {
-    const hasNumber = /[0-9]/.test(value);
-    const hasHyphen = /[-]/.test(value);
-    const hasParentheses = /[()]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 3;
-    const conditions = [hasHyphen, hasParentheses, hasNumber];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
+  email: yup
+    .string()
+    .email("Email inválido")
+    .required("Email é obrigatório")
+    .test("isValidEmail", "Email inválido", (value) => {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-  data: yup.string().required("Campo Obrigatório!").min(10, "*A data deve conter no mínimo 10 caracteres (XX/XX/XXXX)").max(10, "*A data deve conter no máximo 10 caracteres (XX/XX/XXXX)").test("isValidDate", "*Data de nascimento inválida", (value, context) => {
-    const hasNumber = /[0-9]/.test(value);
-    const hasBar = /[/]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 2;
-    const conditions = [hasBar, hasNumber];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
+      return emailRegex.test(value);
+    }),
 
-  cpf: yup.string().required("Campo Obrigatório!").min(14, "*O CPF deve conter no mínimo 14 caracteres (XXX.XXX.XXX-XX)").max(14, "*O celular deve conter no máximo 14 caracteres (XXX.XXX.XXX-XX)").test("isValidCPF", "*CPF inválido ", (value, context) => {
-    const hasNumber = /[0-9]/.test(value);
-    const hasHyphen = /[-]/.test(value);
-    const hasDot = /[.]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 3;
-    const conditions = [hasHyphen, hasDot, hasNumber];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
+  celular: yup
+    .string()
+    .required("Celular é obrigatório")
+    .matches(/^\(\d{2}\) \d{5}-\d{4}$/, "Celular inválido"),
 
-  password: yup.string().required("*Campo obrigatório!").min(6, "*Sua senha deve conter no mínimo 6 caracteres").test("isValidPass", "*Senha inválida ([A-Z] [a-z] [0-9] [!@#%&])", (value, context) => {
-    const hasUpperCase = /[A-Z]/.test(value);
-    const hasLowerCase = /[a-z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-    const hasSymbole = /[!@#%&]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 4;
-    const conditions = [hasLowerCase, hasUpperCase, hasNumber, hasSymbole];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
+  cpfCnpj: yup
+    .string()
+    .required("CPF ou CNPJ é obrigatório")
+    .test("isValidCpfCnpj", "CPF ou CNPJ inválido", (value) => {
+      const cpfCnpjRegex =
+        /^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11}|\d{9}-\d{2}\?|\d{9}-\d{2})$/;
 
-  passwordConfirm: yup.string().oneOf([yup.ref('password'), null], "A senha deve ser igual"),
-
-  cep: yup.string().required("Campo Obrigatório!").min(9, "*O CEP deve conter no mínimo 9 caracteres").max(9, "*O CEP deve conter no máximo 9 caracteres").test("isValidCEP", "*CEP inválido (XXXXX-XXX)", (value, context) => {
-    const hasNumber = /[0-9]/.test(value);
-    const hasHyphen = /[-]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 2;
-    const conditions = [hasHyphen, hasNumber];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
-
-  uf: yup.string().required("Campo Obrigatório!").min(2, "*O estado deve conter no mínimo 2 caracteres").max(2, "*O estado deve conter no máximo 2 caracteres").test("isValidUF", "*UF inválido ([A-Z])", (value, context) => {
-    const hasUpperCase = /[A-Z]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 1;
-    const conditions = [hasUpperCase];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
-
-  numero: yup.string().required("Campo Obrigatório!").min(1, "*O estado deve conter no mínimo 1 caractere ([0-10000])").test("isValidNumero", "*Número inválido", (value, context) => {
-    const hasNumber = /[0-9]/.test(value);
-    let validConditions = 0;
-    const numberOfMustBeValidConditions = 1;
-    const conditions = [hasNumber];
-    conditions.forEach((condition) =>
-      condition ? validConditions++ : null
-    );
-    if (validConditions === numberOfMustBeValidConditions) {
-      return true;
-    }
-    return false
-  }),
-
-  bairro: yup.string().required("*Campo obrigatório!").min(3, "*O bairro deve conter no mínimo 3 caracteres"),
-  
-  cidade: yup.string().required("*Campo obrigatório!").min(3, "*A cidade deve conter no mínimo 3 caracteres"),
-
-  rua: yup.string().required("*Campo obrigatório!").min(3, "*A rua deve conter no mínimo 3 caracteres"),
-})
+      return cpfCnpjRegex.test(value);
+    }),
+  senha: yup.string().required("Senha é obrigatória"),
+  confirmarSenha: yup
+    .string()
+    .oneOf([yup.ref("senha"), null], "Senhas devem ser iguais")
+    .required("Confirmação de senha é obrigatória"),
+  cep: yup.string().required("CEP é obrigatório"),
+  uf: yup.string().required("UF é obrigatório"),
+  numero: yup.string().required("Número é obrigatório"),
+  bairro: yup.string().required("Bairro é obrigatório"),
+  cidade: yup.string().required("Cidade é obrigatória"),
+  rua: yup.string().required("Rua é obrigatória"),
+});
 
 export default function Cadastro() {
-
-  const handleRedirectHome = () => {};
-  
-  const { register, handleSubmit, formState:{ errors } } = useForm({
-    resolver: yupResolver(schema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
   });
-  const onSubmit = data => console.log(data);
 
-  console.log(errors)
+  const [, setLoading] = useState(false);
 
-  
+  const handleCEPChange = async (e) => {
+    const cep = e.target.value.replace(/\D/g, "");
+
+    if (cep.length === 8) {
+      setLoading(true);
+
+      try {
+        const response = await axios.get(
+          `https://viacep.com.br/ws/${cep}/json/`
+        );
+
+        if (response.data.erro) {
+          console.log("CEP não encontrado");
+        } else {
+          setValue("uf", response.data.uf);
+          setValue("cidade", response.data.localidade);
+          setValue("bairro", response.data.bairro);
+          setValue("rua", response.data.logradouro);
+        }
+      } catch (error) {
+        console.log("Erro ao buscar CEP:", error);
+      }
+      setLoading(false);
+    }
+  };
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+  const handleRedirectHome = () => {};
 
   return (
-    <div className="page-container">
-      <div className="cadastro-container">
-        <div className="background-img"></div>
-        <div className="h-100 d-flex justify-content-center align-items-center">
-          <div className="card-cadastro">
-            <Link to="/" onClick={handleRedirectHome}>
-              <img
-                src={logo}
-                className="img-fluid p-2 mb-2 logo-cadastro"
-                alt="Voltar para a página inicial"
-              />
-            </Link>
-            <form id="formCadastro" onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-group">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    id="nome"
-                    className="form-control input-field nome-input"
-                    placeholder="Nome"
-                    {...register("nome")}
+    <div className="container py-2 cadastro-container">
+      <div className="row d-flex justify-content-center align-items-center h-100 cadastro-conteudo">
+        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div className="card-cadastro bg-light text-white">
+            <div className="card-body p-3 text-center">
+              <div className="md-4">
+                <Link to="/" onClick={handleRedirectHome}>
+                  <img
+                    src={logo}
+                    role="button"
+                    className="img-fluid p-2 mb-2 logo-cadastro"
+                    alt="Voltar para a página inicial"
                   />
-                  <p className="error">{errors.nome?.message}</p>
-                  <input
-                    type="text"
-                    id="sobrenome"
-                    className="form-control input-field sobrenome-input"
-                    placeholder="Sobrenome"
-                    {...register("sobrenome")}
-                  />
-                  <p className="error">{errors.sobrenome?.message}</p>
-                </div>
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  id="email"
-                  // name="email"
-                  className="form-control input-field email-input"
-                  placeholder="Digite seu e-mail"
-                  {...register("email")}
-                  />
-                  <p className="error">{errors.email?.message}</p>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  id="cel"
-                  // name="celular"
-                  placeholder="Digite seu Número de celular"
-                  className="form-control input-field celular-input"
-                  {...register("celular")}
-                  />
-                  <p className="error">{errors.celular?.message}</p>
-              </div>
-              <div className="form-group">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    id="data"
-                    // name="data"
-                    // pattern="\d{2}/\d{2}/\d{4}"
-                    // maxLength="10"
-                    // title="O formato da data deve ser DD/MM/AAAA"
-                    placeholder="Data de Nascimento"
-                    className="form-control input-field data-input"
-                    {...register("data")}
-                  />
-                  <p className="error">{errors.data?.message}</p>
-                  <input
-                    type="text"
-                    id="cpfOuCnpj"
-                    // name="cpfOuCnpj"
-                    className="form-control input-field cpfcnpj-input"
-                    placeholder="CPF ou CNPJ"
-                    {...register("cpf")}
-                  />
-                  <p className="error">{errors.cpf?.message}</p>
-                  
-                </div>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  id="password"
-                  // name="senha"
-                  className="form-control input-field senha-input"
-                  placeholder="Digite a sua senha"
-                  {...register("password")}
-                  />
-                  <p className="error">{errors.password?.message}</p>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  id="passwordConfirm"
-                  // name="passwordConfirm"
-                  className="form-control input-field senha-confirm-input"
-                  placeholder="Repita a sua senha"
-                  {...register("passwordConfirm")}
-                  />
-                  <p className="error">{errors.passwordConfirm?.message}</p>
-              </div>
-              <div className="form-group">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    // onBlur={pesquisacep(this.value)}
-                    id="cep"
-                    // name="cep"
-                    className="form-control input-field cep-input"
-                    placeholder="CEP"
-                    {...register("cep")}
-                  />
-                  <p className="error">{errors.cep?.message}</p>
-                  <input
-                    type="text"
-                    id="uf"
-                    // name="uf"
-                    className="form-control input-field uf-input"
-                    placeholder="UF"
-                    {...register("uf")}
-                  />
-                  <p className="error">{errors.uf?.message}</p>
-              
-                  <input
-                    type="text"
-                    id="numero"
-                    // name="numero"
-                    className="form-control input-field numero-input"
-                    placeholder="Número"
-                    {...register("numero")}
-                  />
-                  <p className="error">{errors.numero?.message}</p>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    id="bairro"
-                    // name="bairro"
-                    className="form-control input-field bairro-input"
-                    placeholder="Bairro"
-                    {...register("bairro")}
-                  />
-                  <p className="error">{errors.bairro?.message}</p>
-                  <input
-                    type="text"
-                    id="cidade"
-                    // name="cidade"
-                    className="form-control input-field cidade-input"
-                    placeholder="Cidade"
-                    {...register("cidade")}
-                  />
-                  <p className="error">{errors.cidade?.message}</p>
-                  <input
-                    type="text"
-                    id="rua"
-                    name="rua"
-                    className="form-control input-field rua-input"
-                    placeholder="Rua"
-                    {...register("rua")}
-                  />
-                  <p className="error">{errors.rua?.message}</p>
-                </div>
-              </div>
-              <button
-                className="btn btn-outline-dark btn-lg px-5 mt-3 cadastrar-btn"
-                type="submit"
-                id="submit-login"
-              >
-                Cadastrar
-              </button>
-            </form>
-            <div className="text-form">
-              <p className="text-links">
-                <Link
-                  to="/forgot"
-                  className="links-register fs-6 text-decoration-none fw-bold"
-                >
-                  Esqueci minha senha
                 </Link>
-              </p>
-              <p className="text-links">
-                Já possui uma conta?{" "}
-                <Link
-                  className="links-register fs-6 text-decoration-none fw-bold"
-                  to="/login"
+                <form
+                  className="cadastro-form"
+                  onSubmit={handleSubmit(onSubmit)}
                 >
-                  Entre
-                </Link>
-              </p>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="nomeCompleto"
+                      className="form-control"
+                      placeholder="Nome Completo"
+                      {...register("nomeCompleto")}
+                    />
+                    <p className="error">{errors.nomeCompleto?.message}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="dataNascimento"
+                      className="form-control"
+                      placeholder="Data de Nascimento"
+                      {...register("dataNascimento")}
+                    />
+                    <p className="error">{errors.dataNascimento?.message}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="cpfCnpj"
+                      className="form-control"
+                      placeholder="CPF ou CNPJ"
+                      {...register("cpfCnpj")}
+                    />{" "}
+                    <p className="error">{errors.cpfCnpj?.message}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      id="email"
+                      className="form-control"
+                      placeholder="Email"
+                      {...register("email")}
+                    />
+                    <p className="error">{errors.email?.message}</p>
+                  </div>
+                  <div className="form-group">
+                    <InputMask
+                      mask="(99) 99999-9999"
+                      maskChar=""
+                      id="celular"
+                      className="form-control"
+                      placeholder="Celular"
+                      {...register("celular")}
+                    />
+                    <p className="error">{errors.celular?.message}</p>
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      id="senha"
+                      className="form-control"
+                      placeholder="Senha"
+                      {...register("senha")}
+                    />
+                    <p className="error">{errors.senha?.message}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      id="confirmarSenha"
+                      className="form-control"
+                      placeholder="Confirmar Senha"
+                      {...register("confirmarSenha")}
+                    />
+                    <p className="error">{errors.confirmarSenha?.message}</p>
+                  </div>
+                  <section className="endereco">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        id="cep"
+                        className="form-control"
+                        placeholder="CEP"
+                        {...register("cep")}
+                        onChange={handleCEPChange}
+                      />
+                      <p className="error">{errors.cep?.message}</p>
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        id="uf"
+                        className="form-control"
+                        placeholder="UF"
+                        {...register("uf")}
+                      />
+                      <p className="error">{errors.uf?.message}</p>
+                    </div>
+                  </section>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="cidade"
+                      className="form-control"
+                      placeholder="Cidade"
+                      {...register("cidade")}
+                    />
+                    <p className="error">{errors.cidade?.message}</p>
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="bairro"
+                      className="form-control"
+                      placeholder="Bairro"
+                      {...register("bairro")}
+                    />
+                    <p className="error">{errors.bairro?.message}</p>
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="rua"
+                      className="form-control"
+                      placeholder="Rua"
+                      {...register("rua")}
+                    />
+                    <p className="error">{errors.rua?.message}</p>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="numero"
+                      className="form-control"
+                      placeholder="Número"
+                      {...register("numero")}
+                    />
+                    <p className="error">{errors.numero?.message}</p>
+                  </div>
+
+                  <div>
+                    <p className="small text-center">
+                      <Link
+                        className="links-register fs-6 text-decoration-none "
+                        to="/forgot"
+                      >
+                        Esqueci minha senha
+                      </Link>
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-black text-center">
+                      Já tem uma conta? 
+                      <Link
+                        to="/login"
+                        className="links-register register fw-bold"
+                      >
+                        Entre
+                      </Link>
+                    </p>
+                  </div>
+                  <button
+                    type="submit"
+                    className="btn btn-outline-dark btn-lg px-5 cadastro-btn "
+                  >
+                    Cadastrar
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

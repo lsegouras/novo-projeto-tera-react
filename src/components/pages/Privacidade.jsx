@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import '../styles/privacidade.css'
+import "../styles/privacidade.css";
 import Navbar from "../home/Nav";
 import Footer from "../home/Footer";
 
@@ -31,13 +31,13 @@ export default function Privacidade() {
 
   return (
     <div>
-      <Navbar/>
-      <div className='container-fluid'>
-        <main className='privacidade'>
-          <button className='collapsible'>
+      <Navbar />
+      <div className="container-fluid privacidade-container">
+        <main className="privacidade">
+          <button className="collapsible">
             O que é e pra que serve a política de privacidade?
           </button>
-          <div className='content'>
+          <div className="content">
             <p>
               A política de privacidade é um documento importante que explica
               como coletamos, usamos e protegemos as informações pessoais de
@@ -89,8 +89,8 @@ export default function Privacidade() {
               política de privacidade, não hesite em entrar em contato conosco.
             </p>
           </div>
-          <button className='collapsible'>Quais dados coletamos?</button>
-          <div className='content'>
+          <button className="collapsible">Quais dados coletamos?</button>
+          <div className="content">
             <p>
               Em nosso site, coletamos algumas informações pessoais de nossos
               usuários para que possamos oferecer os serviços solicitados. Esses
@@ -170,8 +170,8 @@ export default function Privacidade() {
               de cancelamento de inscrição nas mensagens enviadas.
             </p>
           </div>
-          <button className='collapsible'>Pra que coletamos seus dados?</button>
-          <div className='content'>
+          <button className="collapsible">Pra que coletamos seus dados?</button>
+          <div className="content">
             <p>
               Em nosso site, utilizamos as informações pessoais dos usuários
               para oferecer os serviços solicitados e garantir a melhor
@@ -224,10 +224,10 @@ export default function Privacidade() {
               </li>
             </ul>
           </div>
-          <button className='collapsible'>
+          <button className="collapsible">
             Com quem podemos compartilhar os seus dados?
           </button>
-          <div className='content'>
+          <div className="content">
             <p>
               Em nosso site, tomamos medidas para proteger as informações
               pessoais dos usuários e garantir que elas sejam tratadas de forma
@@ -264,8 +264,8 @@ export default function Privacidade() {
               </li>
             </ul>
           </div>
-          <button className='collapsible'>Seus direitos</button>
-          <div className='content'>
+          <button className="collapsible">Seus direitos</button>
+          <div className="content">
             <ul>
               <li>
                 <p>
@@ -367,8 +367,7 @@ export default function Privacidade() {
           </div>
         </main>
       </div>
-<Footer/>
+      <Footer />
     </div>
   );
 }
-

@@ -1,184 +1,103 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-html,
 body {
-  height: 100%;
-}
-
-.page-container {
-  background-image: url("../../components/img/fundo/background.jpg");
-  background-repeat: no-repeat;
+  font-family: "Roboto", sans-serif;
+  background-image: url(../img/fundo/background.jpg);
+  background-repeat: inherit;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
+  height: 100vh;
 }
 
-.cadastro-container {
-  max-width: 50%;
-  width: 100%;
-  padding: 2rem;
-  margin: auto;
-  height: auto;
-}
-
-.card-cadastro {
-  -webkit-box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 11px 9px -7px rgba(0, 0, 0, 0.75);
-  border-radius: 2em;
-  padding: 1.5rem;
-  background-color: #fff;
-}
-
-.logo-cadastro {
-  max-width: 150px;
-  display: block;
-  margin: 0 auto;
-}
-
-.input-field {
-  width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.email-input,
-.celular-input,
-.cpfcnpj-input,
-.data-input,
-.senha-input,
-.senha-confirm-input,
-.cep-input,
-.uf-input,
-.numero-input,
-.bairro-input,
-.cidade-input,
-.rua-input {
-  width: 100%;
-}
-
-.cadastrar-btn {
-  width: 100%;
-}
-
-.text-form {
-  text-align: center;
-}
-
-.text-links {
-  margin-bottom: 0.5rem;
-}
-
-.links-register {
-  color: #000;
+.btn:hover {
+  transition: 0.8s;
 }
 
 .links-register:hover {
-  text-decoration: none;
   color: #000;
+  transition: 0.6s;
 }
 
-.fs-6 {
-  font-size: 0.875rem;
+input::placeholder {
+  font-size: 1rem;
 }
 
-.fw-bold {
-  font-weight: 700;
+form {
+  text-align: left;
 }
 
-.input-group {
+.nome,
+.sobrenome,
+.password,
+.dataC {
+  width: 49.5%;
+}
+
+.cep,
+.uf,
+.numero {
+  width: 32.3%;
+}
+
+.senha,
+.dataCPF,
+.nomeCompleto,
+.endereco {
   display: flex;
-  gap: 0.5rem;
+  justify-content: space-between;
 }
 
-.input-group p{
-  display: flex;
-  gap: 0.5rem;
-  align-self: center;
-}
+/* media queries do formulário */
 
-.nome-input,
-.sobrenome-input,
-.email-input,
-.celular-input,
-.cpfcnpj-input,
-.data-input,
-.senha-input,
-.senha-confirm-input,
-.cep-input,
-.uf-input,
-.numero-input,
-.bairro-input,
-.cidade-input,
-.rua-input {
-  flex-grow: 1;
-}
-
-.form-group {
-  width: 100%;
-}
-
-#submit-login {
-  width: 25%;
-}
-
-@media (max-width: 768px) {
-  .cadastro-container {
-    max-width: 80%;
+@media (max-width: 480px) {
+  body {
+    overflow: scroll;
   }
-
-  .card-cadastro {
-    padding: 1rem;
+  .nome,
+  .sobrenome,
+  .password,
+  .dataC,
+  .cep,
+  .uf,
+  .numero {
+    width: 100%;
   }
-
-  .logo-cadastro {
-    max-width: 100px;
-  }
-
-  .input-field {
-    font-size: 0.875rem;
-    padding: 0.75rem;
-  }
-
-  .input-group {
+  .senha,
+  .dataCPF,
+  .nomeCompleto,
+  .endereco {
+    display: flex;
     flex-direction: column;
   }
+}
 
-  .nome-input,
-  .sobrenome-input,
-  .email-input,
-  .celular-input,
-  .cpfcnpj-input,
-  .data-input,
-  .senha-input,
-  .senha-confirm-input,
-  .cep-input,
-  .uf-input,
-  .numero-input,
-  .bairro-input,
-  .cidade-input,
-  .rua-input {
-    width: 100%;
-  }
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .cadastrar-btn {
-    width: 100%;
-  }
+.cadastro-conteudo {
+  min-width: 100%;
+}
 
-  #submit-login {
-    width: 50%;
-  }
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.cadastro-btn {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo-cadastro {
+  max-width: 300px;
+  max-height: 90px;
+}
+
+.card-cadastro {
+  border-radius: 2em;
+  box-shadow: 0px 0px 22px 5px rgba(0, 0, 0, 0.55);
+  background-color: #f8f9fa !important;
+  padding: 1rem;
 }

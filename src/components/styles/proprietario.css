@@ -67,7 +67,7 @@ h1 {
   width: 40%;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,11 +75,11 @@ form{
   width: 100%;
 }
 
-.full-box{
+.full-box {
   display: flex;
-    justify-content: flex-start;
-    align-items:baseline;
-    width: 102%;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 102%;
 }
 
 select {
@@ -129,7 +129,7 @@ input[type="submit"] {
   margin-top: 1rem;
 }
 
-.btn{
+.btn {
   background-color: rgb(235, 232, 232);
 }
 
@@ -167,4 +167,3 @@ footer section h3::before {
   box-sizing: border-box;
   width: 50px;
 }
-

@@ -13,13 +13,14 @@ export default function Forgot() {
             <div className="card bg-light text-white card-forgot">
               <div className="card-body p-5 text-center">
                 <div className="md-4">
-                <Link to="/" onClick={handleRedirectHome}>
-                  <img
-                    src={logo}
-                    role="button"
-                    className="img-fluid w-25 p-2 mb-2"
-                    alt="Voltar para a página inicial"
-                  /></Link>
+                  <Link to="/" onClick={handleRedirectHome}>
+                    <img
+                      src={logo}
+                      role="button"
+                      className="img-fluid w-25 p-2 mb-2"
+                      alt="Voltar para a página inicial"
+                    />
+                  </Link>
                   <h2 className="text-black fs-5 mb-3">Esqueceu sua senha?</h2>
                   <form id="form-email">
                     <input
@@ -31,7 +32,7 @@ export default function Forgot() {
                       required
                     />
                     <input
-                      className="btn btn-outline-dark btn-lg px-5 mt-3 mb-3"
+                      className="btn btn-outline-dark btn-lg px-5 cadastro-btn mt-2 mb-2"
                       type="submit"
                       value="Enviar"
                       id="submit"
