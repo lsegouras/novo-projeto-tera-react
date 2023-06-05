@@ -54,15 +54,6 @@ const schema = yup.object({
     .required("Celular é obrigatório")
     .matches(/^\(\d{2}\) \d{5}-\d{4}$/, "Celular inválido"),
 
-  cpfCnpj: yup
-    .string()
-    .required("CPF ou CNPJ é obrigatório")
-    .test("isValidCpfCnpj", "CPF ou CNPJ inválido", (value) => {
-      const cpfCnpjRegex =
-        /^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11}|\d{9}-\d{2}\?|\d{9}-\d{2})$/;
-
-      return cpfCnpjRegex.test(value);
-    }),
   senha: yup.string().required("Senha é obrigatória"),
   confirmarSenha: yup
     .string()
@@ -87,6 +78,29 @@ export default function Cadastro() {
   });
 
   const [, setLoading] = useState(false);
+
+  const handleCpfCnpjChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+
+    let maskedValue = value;
+
+    if (value.length <= 11) {
+      // Máscara para CPF
+      maskedValue = value
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    } else {
+      // Máscara para CNPJ
+      maskedValue = value
+        .replace(/^(\d{2})(\d)/, "$1.$2")
+        .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1/$2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    setValue("cpfCnpj", maskedValue);
+  };
 
   const handleCEPChange = async (e) => {
     const cep = e.target.value.replace(/\D/g, "");
@@ -155,8 +169,9 @@ export default function Cadastro() {
                     <p className="error">{errors.nomeCompleto?.message}</p>
                   </div>
                   <div className="form-group">
-                    <input
-                      type="text"
+                    <InputMask
+                      mask="99/99/9999"
+                      maskPlaceholder=""
                       id="dataNascimento"
                       className="form-control"
                       placeholder="Data de Nascimento"
@@ -164,6 +179,7 @@ export default function Cadastro() {
                     />
                     <p className="error">{errors.dataNascimento?.message}</p>
                   </div>
+
                   <div className="form-group">
                     <input
                       type="text"
@@ -171,9 +187,12 @@ export default function Cadastro() {
                       className="form-control"
                       placeholder="CPF ou CNPJ"
                       {...register("cpfCnpj")}
-                    />{" "}
+                      onChange={handleCpfCnpjChange}
+                      maxLength={18}
+                    />
                     <p className="error">{errors.cpfCnpj?.message}</p>
                   </div>
+
                   <div className="form-group">
                     <input
                       type="email"
