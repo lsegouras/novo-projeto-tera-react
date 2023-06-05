@@ -171,7 +171,7 @@ export default function Cadastro() {
                   <div className="form-group">
                     <InputMask
                       mask="99/99/9999"
-                      maskPlaceholder=""
+                      maskplaceholder=""
                       id="dataNascimento"
                       className="form-control"
                       placeholder="Data de Nascimento"
