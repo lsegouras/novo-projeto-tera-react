@@ -12,13 +12,13 @@ const schema = yup.object({
   nomeCompleto: yup
     .string()
     .required("Nome Completo é obrigatório")
-    .min(3, "Nome Completo deve conter no mínimo 3 caracteres"),
+    .min(3, "O Nome Completo deve conter no mínimo 3 caracteres"),
   dataNascimento: yup
     .string()
     .required("Data de Nascimento é obrigatória")
-    .test("isValidDate", "Data de Nascimento inválida", (value) => {
+    .test("isValidDate", "Data de Nascimento inválida (XX/XX/XXXX)", (value) => {
       const dateRegex =
-        /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{2}|\d{4})$/;
+        /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
 
       if (!dateRegex.test(value)) {
         return false;
@@ -52,7 +52,7 @@ const schema = yup.object({
   celular: yup
     .string()
     .required("Celular é obrigatório")
-    .matches(/^\(\d{2}\) \d{5}-\d{4}$/, "Celular inválido"),
+    .matches(/^\(\d{2}\) \d{5}-\d{4}$/, "Celular inválido (XX) XXXXX-XXXX"),
 
   cpfCnpj: yup
     .string()
@@ -114,14 +114,14 @@ export default function Cadastro() {
     }
   };
 
-  const onSubmit = async (data) => {
-    try {
-      await axios.post("http://localhost:4000/submit", data);
-      console.log("Dados armazenados com sucesso!");
-    } catch (error) {
-      console.error("Erro ao armazenar os dados", error);
-    }
-  };
+  // const onSubmit = async (data) => {
+  //   try {
+  //     await axios.post("http://localhost:4000/submit", data);
+  //     console.log("Dados armazenados com sucesso!");
+  //   } catch (error) {
+  //     console.error("Erro ao armazenar os dados", error);
+  //   }
+  // };
 
   const handleRedirectHome = () => {};
 

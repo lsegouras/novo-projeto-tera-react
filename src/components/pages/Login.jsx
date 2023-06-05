@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+// import { useEffect, useState } from "react";
+// import axios from "axios"
 import logo from "../../components/img/logo/logo-black.png";
 import "../styles/login.css";
 
@@ -64,6 +66,34 @@ export default function Login() {
 
   console.log(errors);
 
+  // const history = useNavigate()
+
+  // const [email, setEmail] = useState('')
+  // const [password, setPassword] = useState('')
+
+  // async function submit(e){
+  //   e.preventDefault()
+  //   try{
+  //     await axios.post("http://localhost:8000/",{
+  //     email, password
+  //     })
+  //     .then(res=>{
+  //       if(res.data="Esse usuário já existe"){
+  //         history("/home")
+  //       }
+  //       else if(res.data="Esse usuário ainda não existe"){
+  //         alert("Usuário ainda não realizou o cadastro")
+  //       }
+  //     })
+  //     .catch(e => {
+  //       alert("erro")
+  //       console.log(e);
+  //     })
+  //   }
+  //   catch(e){
+  //     console.log(e);
+  //   }
+  // }
   return (
     <div className="container py-2 login-container">
       <div className="row d-flex justify-content-center align-items-center h-100 login-conteudo">
@@ -80,12 +110,13 @@ export default function Login() {
                 </Link>
 
                 <section>
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  <form action="POST" onSubmit={handleSubmit(onSubmit)}>
                     <input
                       type="text"
                       id="email"
                       className="form-control "
                       placeholder="Digite seu E-mail"
+                      // onChange={(e)=>{setEmail(e.target.value)}}
                       {...register("email")}
                     />
                     <p className="error">{errors.email?.message}</p>
@@ -96,6 +127,7 @@ export default function Login() {
                       className="form-control  mt-2"
                       placeholder="Digite sua Senha"
                       {...register("password")}
+                      // onChange={(e)=>{setPassword(e.target.value)}}
                     />
                     <p className="error">{errors.password?.message}</p>
 
@@ -104,6 +136,7 @@ export default function Login() {
                       type="submit"
                       value="Login"
                       id="submit-login"
+                      // onClick={submit}
                     />
                   </form>
                 </section>
