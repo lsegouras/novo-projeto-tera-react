@@ -128,14 +128,14 @@ export default function Cadastro() {
     }
   };
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     await axios.post("http://localhost:4000/submit", data);
-  //     console.log("Dados armazenados com sucesso!");
-  //   } catch (error) {
-  //     console.error("Erro ao armazenar os dados", error);
-  //   }
-  // };
+  const onSubmit = async (data) => {
+    try {
+      await axios.post("http://localhost:4000/submit", data);
+      console.log("Dados armazenados com sucesso!");
+    } catch (error) {
+      console.error("Erro ao armazenar os dados", error);
+    }
+  };
 
   const handleRedirectHome = () => {};
 
