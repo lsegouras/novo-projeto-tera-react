@@ -22,7 +22,7 @@ const Navbar = () => {
           aria-label="Alternar navegação"
         >
           <span>
-            <i className="bi bi-list"></i>
+            <i className="bi bi-list white-icon"></i>
           </span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
