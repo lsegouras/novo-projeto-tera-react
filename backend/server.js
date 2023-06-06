@@ -17,6 +17,16 @@ const client = new MongoClient(uri, {
 app.use(express.json());
 app.use(cors());
 
+(async () => {
+  try {
+    await client.connect();
+    console.log("Conectado ao MongoDB com sucesso!");
+  } catch (error) {
+    console.error("Erro ao conectar ao MongoDB", error);
+    process.exit(1);
+  }
+})();
+
 app.post("/submit", async (req, res) => {
   try {
     const { confirmarSenha, ...dados } = req.body;
@@ -30,14 +40,12 @@ app.post("/submit", async (req, res) => {
     res.status(200).json({ message: "Dados armazenados com sucesso!" });
   } catch (error) {
     console.error("Erro ao armazenar os dados", error);
-    ("");
     res.status(500).json({ error: "Erro ao armazenar os dados" });
   }
 });
 
 app.get("/users/all", async (req, res) => {
   try {
-    await client.connect();
     const collection = client.db("bancotera").collection("colecaotera");
     const users = await collection.find().toArray();
     res.status(200).json(users);
