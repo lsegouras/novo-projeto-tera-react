@@ -30,7 +30,6 @@ app.post("/submit", async (req, res) => {
     res.status(200).json({ message: "Dados armazenados com sucesso!" });
   } catch (error) {
     console.error("Erro ao armazenar os dados", error);
-    ("");
     res.status(500).json({ error: "Erro ao armazenar os dados" });
   }
 });
